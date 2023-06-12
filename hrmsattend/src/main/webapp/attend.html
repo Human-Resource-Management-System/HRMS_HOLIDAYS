@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Punch-In Punch-Out Pie Chart</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+  <canvas id="punchChart"></canvas>
+
+  <script>
+    // Get the canvas element
+    var ctx = document.getElementById('punchChart').getContext('2d');
+
+    // Sample punch-in and punch-out times (replace with your own data)
+    var punchInTimes = ['2023-06-07T09:00:00', '2023-06-07T12:30:00', '2023-06-07T16:45:00'];
+    var punchOutTimes = ['2023-06-07T12:00:00', '2023-06-07T16:00:00', '2023-06-07T18:30:00'];
+
+    // Calculate durations for each shift
+    var durations = [];
+    for (var i = 0; i < punchInTimes.length; i++) {
+      var punchIn = new Date(punchInTimes[i]);
+      var punchOut = new Date(punchOutTimes[i]);
+      var duration = (punchOut - punchIn) / (1000 * 60 * 60); // Duration in hours
+      durations.push(duration);
+    }
+
+    // Define the data for the pie chart
+    var data = {
+      labels: ['Shift 1', 'Shift 2', 'Shift 3'],
+      datasets: [{
+        data: durations,
+        backgroundColor: ['#ff6384', '#36a2eb', '#ffce56']
+      }]
+    };
+
+    // Create the pie chart
+    var punchChart = new Chart(ctx, {
+      type: 'pie',
+      data: data,
+      options: {
+        // You can customize the appearance and behavior of the chart here
+      }
+    });
+  </script>
+</body>
+
+</html>
